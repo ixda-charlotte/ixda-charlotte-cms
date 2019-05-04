@@ -1,0 +1,41 @@
+{
+  "connection": "default",
+  "collectionName": "committeemember",
+  "info": {
+    "name": "executive",
+    "description": "Executive Committee Member"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Name": {
+      "default": "",
+      "type": "string"
+    },
+    "Title": {
+      "default": "",
+      "type": "string"
+    },
+    "Company": {
+      "default": "",
+      "type": "string"
+    },
+    "Twitter": {
+      "default": "",
+      "type": "string"
+    },
+    "LinkedIn": {
+      "default": "",
+      "type": "string"
+    },
+    "Website": {
+      "default": "",
+      "type": "string"
+    },
+    "Email": {
+      "default": "",
+      "type": "email"
+    }
+  }
+}

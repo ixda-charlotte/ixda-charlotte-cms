@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/leaders",
+      "handler": "Leader.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/leaders/count",
+      "handler": "Leader.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/leaders/:_id",
+      "handler": "Leader.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/leaders",
+      "handler": "Leader.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/leaders/:_id",
+      "handler": "Leader.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/leaders/:_id",
+      "handler": "Leader.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

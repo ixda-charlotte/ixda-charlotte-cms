@@ -1,0 +1,29 @@
+{
+  "connection": "default",
+  "collectionName": "blog",
+  "info": {
+    "name": "thoughts",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Title": {
+      "default": "",
+      "type": "string"
+    },
+    "Body": {
+      "default": "",
+      "type": "text"
+    },
+    "Publish Date": {
+      "default": "",
+      "type": "date"
+    },
+    "Publish": {
+      "default": false,
+      "type": "boolean"
+    }
+  }
+}

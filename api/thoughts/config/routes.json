@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/thoughts",
+      "handler": "Thoughts.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/thoughts/count",
+      "handler": "Thoughts.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/thoughts/:_id",
+      "handler": "Thoughts.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/thoughts",
+      "handler": "Thoughts.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/thoughts/:_id",
+      "handler": "Thoughts.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/thoughts/:_id",
+      "handler": "Thoughts.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

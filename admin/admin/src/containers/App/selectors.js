@@ -34,11 +34,6 @@ const makeSelectBlockApp = () => createSelector(
   (appState) => appState.get('blockApp'),
 );
 
-const makeSelectOverlayBlockerProps = () => createSelector(
-  selectApp(),
-  (appState) => appState.get('overlayBlockerData'),
-);
-
 const makeSelectIsAppLoading = () => createSelector(
   selectApp(),
   appState => appState.get('isAppLoading'),
@@ -55,7 +50,6 @@ export {
   selectPlugins,
   makeSelectAppPlugins,
   makeSelectBlockApp,
-  makeSelectOverlayBlockerProps,
   makeSelectIsAppLoading,
   makeSelectShowGlobalAppBlocker,
 };

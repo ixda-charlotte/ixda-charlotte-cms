@@ -1,5 +1,5 @@
 {
-  "name": "cms.ixdacharlotte.org",
+  "name": "strapi-heroku-app",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application.",
@@ -20,24 +20,24 @@
   },
   "dependencies": {
     "lodash": "^4.17.5",
-    "strapi": "3.0.0-alpha.23.1",
-    "strapi-hook-mongoose": "3.0.0-alpha.23.1"
+    "strapi": "3.0.0-alpha.17",
+    "strapi-hook-mongoose": "3.0.0-alpha.17"
   },
   "author": {
-    "name": "bermonpainter",
+    "name": "pierreburgy",
     "email": "",
     "url": ""
   },
   "maintainers": [
     {
-      "name": "bermonpainter",
+      "name": "pierreburgy",
       "email": "",
       "url": ""
     }
   ],
   "strapi": {
     "packageManager": "npm",
-    "uuid": "c50ba510-d7cc-4a98-a258-d01784c27a31"
+    "uuid": "c0c2a4cd-7d8d-4bcf-ac00-3b094746325c"
   },
   "engines": {
     "node": ">= 10.0.0",

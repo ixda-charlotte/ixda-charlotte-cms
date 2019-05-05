@@ -10,23 +10,30 @@ import cn from 'classnames';
 import { isEmpty, replace } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 
+// Temporary picture
 import Button from 'components/Button';
 import InstallPluginPopup from 'components/InstallPluginPopup';
+import Official from 'components/Official';
+// import StarsContainer from 'components/StarsContainer';
 
+import logoTShirt from 'assets/images/logo-t-shirt.svg';
 import styles from './styles.scss';
-
-const PLUGINS_WITH_CONFIG = ['content-manager', 'email', 'upload'];
+import Screenshot from './screenshot.png';
 
 /* eslint-disable react/no-unused-state */
 class PluginCard extends React.Component {
-  state = { 
-    boostrapCol: 'col-lg-4',
-  };
+  state = { isOpen: false, boostrapCol: 'col-lg-4' };
 
   componentDidMount() {
-    // Listen window resize.
+    this.shouldOpenModal(this.props);
     window.addEventListener('resize', this.setBoostrapCol);
     this.setBoostrapCol();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.history.location.hash !== this.props.history.location.hash) {
+      this.shouldOpenModal(nextProps);
+    }
   }
 
   componentWillUnmount() {
@@ -58,15 +65,6 @@ class PluginCard extends React.Component {
     }
   }
 
-  handleClickSettings = (e) => {
-    const settingsPath = this.props.plugin.id === 'content-manager' ? '/plugins/content-manager/ctm-configurations' : `/plugins/${this.props.plugin.id}/configurations/${this.props.currentEnvironment}`; 
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    this.props.history.push(settingsPath);
-  }
-
   handleDownloadPlugin = (e) => {
     if (!this.props.isAlreadyInstalled && this.props.plugin.id !== 'support-us') {
       this.props.downloadPlugin(e);
@@ -77,15 +75,23 @@ class PluginCard extends React.Component {
     }
   }
 
-  render() {
-    const buttonClass = !this.props.isAlreadyInstalled ? styles.primary : styles.secondary;
-    const buttonLabel = this.props.isAlreadyInstalled ? 'app.components.PluginCard.Button.label.install' : 'app.components.PluginCard.Button.label.download';
+  shouldOpenModal = (props) => {
+    this.setState({ isOpen: !isEmpty(props.history.location.hash) });
+  }
 
-    // Display settings link for a selection of plugins.
-    const settingsComponent = (PLUGINS_WITH_CONFIG.includes(this.props.plugin.id) && 
-      <div className={styles.settings} onClick={this.handleClickSettings}>
-        <i className='fa fa-cog' />
-        <FormattedMessage id='app.components.PluginCard.settings' />
+  render() {
+    const buttonClass = !this.props.isAlreadyInstalled || this.props.showSupportUsButton ? styles.primary : styles.secondary;
+
+    let buttonLabel = this.props.isAlreadyInstalled ? 'app.components.PluginCard.Button.label.install' : 'app.components.PluginCard.Button.label.download';
+
+    if (this.props.showSupportUsButton) {
+      buttonLabel = 'app.components.PluginCard.Button.label.support';
+    }
+
+    const pluginIcon = (
+      <div className={styles.frame}>
+        <span className={styles.helper} />
+        <img src={`${this.props.plugin.id === 'support-us' ? logoTShirt : this.props.plugin.logo}`} alt="icon" />
       </div>
     );
 
@@ -95,21 +101,37 @@ class PluginCard extends React.Component {
     };
 
     return (
-      <div className={cn(this.state.boostrapCol, styles.pluginCard)}>
+      <div className={cn(this.state.boostrapCol, styles.pluginCard)} onClick={this.handleClick}>
         <div className={styles.wrapper}>
           <div className={styles.cardTitle}>
-            <div className={styles.frame}>
-              <span className={styles.helper} />
-              <img src={this.props.plugin.logo} alt="icon" />
-            </div>
-            <div>{this.props.plugin.name} <i className='fa fa-external-link' onClick={() => window.open(`https://github.com/strapi/strapi/tree/master/packages/strapi-plugin-${this.props.plugin.id}`, '_blank')} /></div>
+            {pluginIcon}
+            <div>{this.props.plugin.name}</div>
           </div>
           <div className={styles.cardDescription}>
-            {descriptions.long}
-            {/* &nbsp;<FormattedMessage id="app.components.PluginCard.more-details" /> */}
+            {descriptions.short}
+            &nbsp;<FormattedMessage id="app.components.PluginCard.more-details" />
+          </div>
+          <div className={styles.cardScreenshot} style={{ backgroundImage: `url(${Screenshot})` }}>
+
+          </div>
+          <div className={styles.cardPrice}>
+            <div>
+              <i className={`fa fa-${this.props.plugin.isCompatible ? 'check' : 'times'}`} />
+              <FormattedMessage id={`app.components.PluginCard.compatible${this.props.plugin.id === 'support-us' ? 'Community' : ''}`} />
+            </div>
+            <div>{this.props.plugin.price !== 0 ? `${this.props.plugin.price}€` : ''}</div>
           </div>
           <div className={styles.cardFooter} onClick={e => e.stopPropagation()}>
-            <div className={styles.cardFooterButton}>
+            <div className={styles.ratings}>
+              {/*<StarsContainer ratings={this.props.plugin.ratings} />
+              <div>
+                <span style={{ fontWeight: '600', color: '#333740' }}>{this.props.plugin.ratings}</span>
+                <span style={{ fontWeight: '500', color: '#666666' }}>/5</span>
+              </div>
+              */}
+              <Official />
+            </div>
+            <div>
               <Button
                 className={cn(buttonClass, styles.button)}
                 label={buttonLabel}
@@ -124,18 +146,6 @@ class PluginCard extends React.Component {
                 &nbsp;
               </a>
             </div>
-            {this.props.isAlreadyInstalled ? 
-              (
-                settingsComponent
-              )
-              :
-              (
-                <div className={styles.compatible}>
-                  <i className={`fa fa-${this.props.plugin.isCompatible ? 'check' : 'times'}`} />
-                  <FormattedMessage id={`app.components.PluginCard.compatible${this.props.plugin.id === 'support-us' ? 'Community' : ''}`} />
-                </div>
-              )
-            }
           </div>
         </div>
         <InstallPluginPopup
@@ -158,14 +168,15 @@ PluginCard.defaultProps = {
     price: 0,
     ratings: 5,
   },
+  showSupportUsButton: false,
 };
 
 PluginCard.propTypes = {
-  currentEnvironment: PropTypes.string.isRequired,
   downloadPlugin: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   isAlreadyInstalled: PropTypes.bool,
   plugin: PropTypes.object,
+  showSupportUsButton: PropTypes.bool,
 };
 
 export default PluginCard;

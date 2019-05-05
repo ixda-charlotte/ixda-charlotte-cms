@@ -77,10 +77,15 @@ export function* submit() {
   let shouldAddTranslationSuffix = false;
   
   // Remove the updated_at & created_at fields so it is updated correctly when using Postgres or MySQL db
-  const timestamps = get(schema, ['models', currentModelName, 'options', 'timestamps'], null);
-  if (timestamps) {
-    delete record[timestamps[0]];
-    delete record[timestamps[1]];
+  if (record.updated_at) {
+    delete record.created_at;
+    delete record.updated_at;
+  }
+
+  // Remove the updatedAt & createdAt fields so it is updated correctly when using MongoDB
+  if (record.updatedAt) {
+    delete record.createdAt;
+    delete record.updatedAt;
   }
 
   try {
@@ -88,18 +93,8 @@ export function* submit() {
     yield put(setLoader());
     const recordCleaned = Object.keys(record).reduce((acc, current) => {
       const attrType = source !== 'content-manager' ? get(schema, ['models', 'plugins', source, currentModelName, 'fields', current, 'type'], null) : get(schema, ['models', currentModelName, 'fields', current, 'type'], null);
-      let cleanedData;
+      const cleanedData = attrType === 'json' ? record[current] : cleanData(record[current], 'value', 'id');
 
-      switch (attrType) {
-        case 'json':
-          cleanedData = record[current];
-          break;
-        case 'date':
-          cleanedData = record[current]._isAMomentObject === true ? record[current].format('YYYY-MM-DD HH:mm:ss') : record[current];
-          break;
-        default:
-          cleanedData = cleanData(record[current], 'value', 'id');
-      }
 
       if (isString(cleanedData) || isNumber(cleanedData)) {
         acc.append(current, cleanedData);

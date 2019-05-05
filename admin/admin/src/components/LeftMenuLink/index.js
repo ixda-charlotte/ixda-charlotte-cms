@@ -47,22 +47,8 @@ class LeftMenuLink extends React.Component {
       <span className={styles.linkLabel}>{this.props.label}</span>
     );
 
-    // Icon.
-    const icon = <i className={`${styles.linkIcon} fa-${this.props.icon} fa`} />;
-
-    // Create external or internal link.
-    const link = this.props.destination.includes('http')
-      ? (
-        <a
-          className={`${styles.link} ${isLinkActive ? styles.linkActive : ''}`}
-          href={this.props.destination}
-          target="_blank"
-        >
-          {icon}
-          {content}
-        </a>
-      )
-      : (
+    return (
+      <li className={styles.item}>
         <Link
           className={`${styles.link} ${isLinkActive ? styles.linkActive : ''}`}
           to={{
@@ -70,14 +56,9 @@ class LeftMenuLink extends React.Component {
             search: this.props.source ? `?source=${this.props.source}` : '',
           }}
         >
-          {icon}
+          <i className={`${styles.linkIcon} fa-${this.props.icon} fa`} />
           {content}
         </Link>
-      );
-
-    return (
-      <li className={styles.item}>
-        {link}
         {plugin}
       </li>
     );

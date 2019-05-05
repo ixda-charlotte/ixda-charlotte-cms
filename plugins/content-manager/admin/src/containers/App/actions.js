@@ -17,7 +17,6 @@ import {
   MOVE_ATTR_EDIT_VIEW,
   MOVE_VARIABLE_ATTR_EDIT_VIEW,
   ON_CHANGE,
-  ON_CHANGE_INPUT_TYPE,
   ON_CHANGE_SETTINGS,
   ON_CLICK_ADD_ATTR,
   ON_CLICK_ADD_ATTR_FIELD,
@@ -112,16 +111,6 @@ export function onChange({ target }) {
 
   return {
     type: ON_CHANGE,
-    keys: target.name.split('.'),
-    value,
-  };
-}
-
-export function onChangeInputType({ target }) {
-  const value = target.value === true ? 'WYSIWYG' : '';
-
-  return {
-    type: ON_CHANGE_INPUT_TYPE,
     keys: target.name.split('.'),
     value,
   };

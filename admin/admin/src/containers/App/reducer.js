@@ -19,7 +19,6 @@ import {
 const initialState = fromJS({
   appPlugins: List([]),
   blockApp: false,
-  overlayBlockerData: null,
   hasUserPlugin: true,
   isAppLoading: true,
   plugins: {},
@@ -33,15 +32,7 @@ function appReducer(state = initialState, action) {
     case ENABLE_GLOBAL_OVERLAY_BLOCKER:
       return state.set('showGlobalAppBlocker', true);
     case FREEZE_APP:
-      return state
-        .set('blockApp', true)
-        .update('overlayBlockerData', () => {
-          if (action.data) {
-            return action.data;
-          }
-
-          return null;
-        });
+      return state.set('blockApp', true);
     case GET_APP_PLUGINS_SUCCEEDED:
       return state
         .update('appPlugins', () => List(action.appPlugins))
@@ -53,9 +44,7 @@ function appReducer(state = initialState, action) {
     case PLUGIN_DELETED:
       return state.deleteIn(['plugins', action.plugin]);
     case UNFREEZE_APP:
-      return state
-        .set('blockApp', false)
-        .set('overlayBlockerData', null);
+      return state.set('blockApp', false);
     case UNSET_HAS_USERS_PLUGIN:
       return state.set('hasUserPlugin', false);
     default:

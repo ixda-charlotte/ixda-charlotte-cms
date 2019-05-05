@@ -84,8 +84,7 @@ class SettingsPage extends React.PureComponent {
 
   handleClick = (destination) => {
     const { location: { pathname } } = this.props;
-
-    this.props.history.push(`${pathname}/list-settings${destination}`);
+    this.props.history.push(`${pathname}${destination}`);
   }
 
   handleConfirmReset = () => {

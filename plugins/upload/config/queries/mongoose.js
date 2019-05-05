@@ -13,7 +13,7 @@ module.exports = {
 
   count: async function (params = {}) {
     return Number(await this
-      .countDocuments(params));
+      .count(params));
   },
 
   findOne: async function (params, populate) {
@@ -68,7 +68,7 @@ module.exports = {
       };
     }
 
-    return this.updateOne(search, params, {
+    return this.update(search, params, {
       strict: false
     })
       .catch((error) => {

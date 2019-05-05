@@ -140,25 +140,6 @@ export class HomePage extends React.Component {
     }
   }
 
-  headerNavLinks = [
-    {
-      name: 'users-permissions.HeaderNav.link.roles',
-      to: '/plugins/users-permissions/roles',
-    },
-    {
-      name: 'users-permissions.HeaderNav.link.providers',
-      to: '/plugins/users-permissions/providers',
-    },
-    {
-      name: 'users-permissions.HeaderNav.link.emailTemplates',
-      to: '/plugins/users-permissions/email-templates',
-    },
-    {
-      name: 'users-permissions.HeaderNav.link.advancedSettings',
-      to: '/plugins/users-permissions/advanced',
-    },
-  ];
-
   pluginHeaderActions = [
     {
       label: 'users-permissions.EditPage.cancel',
@@ -208,7 +189,7 @@ export class HomePage extends React.Component {
               description={{ id: 'users-permissions.HomePage.header.description' }}
               actions={headerActions}
             />
-            <HeaderNav links={this.headerNavLinks} />
+            <HeaderNav />
             {component}
           </div>
           <PopUpForm

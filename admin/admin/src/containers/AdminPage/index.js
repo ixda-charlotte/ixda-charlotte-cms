@@ -23,7 +23,6 @@ import { pluginLoaded, updatePlugin } from 'containers/App/actions';
 import {
   makeSelectAppPlugins,
   makeSelectBlockApp,
-  makeSelectOverlayBlockerProps,
   makeSelectIsAppLoading,
   makeSelectShowGlobalAppBlocker,
   selectHasUserPlugin,
@@ -36,7 +35,7 @@ import LocaleToggle from 'containers/LocaleToggle';
 import CTAWrapper from 'components/CtaWrapper';
 import Header from 'components/Header/index';
 import HomePage from 'containers/HomePage/Loadable';
-import Marketplace from 'containers/Marketplace/Loadable';
+import InstallPluginPage from 'containers/InstallPluginPage/Loadable';
 import LeftMenu from 'containers/LeftMenu';
 import ListPluginsPage from 'containers/ListPluginsPage/Loadable';
 import LoadingIndicatorPage from 'components/LoadingIndicatorPage';
@@ -189,8 +188,6 @@ export class AdminPage extends React.Component {
     return plugins;
   };
 
-  renderMarketPlace = props => <Marketplace {...props} {...this.props} />;
-
   render() {
     const { adminPage } = this.props;
     const header = this.showLeftMenu() ? <Header /> : '';
@@ -222,17 +219,14 @@ export class AdminPage extends React.Component {
               <Route path="/plugins/:pluginId" component={PluginPage} />
               <Route path="/plugins" component={ComingSoonPage} />
               <Route path="/list-plugins" component={ListPluginsPage} exact />
-              <Route path="/marketplace" render={this.renderMarketPlace} exact />
+              <Route path="/install-plugin" component={InstallPluginPage} exact />
               <Route path="/configuration" component={ComingSoonPage} exact />
               <Route path="" component={NotFoundPage} />
               <Route path="404" component={NotFoundPage} />
             </Switch>
           </Content>
         </div>
-        <OverlayBlocker
-          isOpen={this.props.blockApp && this.props.showGlobalAppBlocker}
-          {...this.props.overlayBlockerData}
-        />
+        <OverlayBlocker isOpen={this.props.blockApp && this.props.showGlobalAppBlocker} />
       </div>
     );
   }
@@ -254,7 +248,6 @@ AdminPage.defaultProps = {
   appPlugins: [],
   hasUserPlugin: true,
   isAppLoading: true,
-  overlayBlockerData: {},
 };
 
 AdminPage.propTypes = {
@@ -263,15 +256,10 @@ AdminPage.propTypes = {
   blockApp: PropTypes.bool.isRequired,
   disableGlobalOverlayBlocker: PropTypes.func.isRequired,
   enableGlobalOverlayBlocker: PropTypes.func.isRequired,
-  getAdminData: PropTypes.func.isRequired,
   hasUserPlugin: PropTypes.bool,
   history: PropTypes.object.isRequired,
   isAppLoading: PropTypes.bool,
   location: PropTypes.object.isRequired,
-  overlayBlockerData: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.object,
-  ]),
   pluginLoaded: PropTypes.func.isRequired,
   plugins: PropTypes.object.isRequired,
   showGlobalAppBlocker: PropTypes.bool.isRequired,
@@ -282,7 +270,6 @@ const mapStateToProps = createStructuredSelector({
   adminPage: selectAdminPage(),
   appPlugins: makeSelectAppPlugins(),
   blockApp: makeSelectBlockApp(),
-  overlayBlockerData: makeSelectOverlayBlockerProps(),
   hasUserPlugin: selectHasUserPlugin(),
   isAppLoading: makeSelectIsAppLoading(),
   plugins: selectPlugins(),
@@ -307,3 +294,4 @@ const withReducer = injectReducer({ key: 'adminPage', reducer });
 const withSaga = injectSaga({ key: 'adminPage', saga });
 
 export default compose(withReducer, withSaga, withConnect)(AdminPage);
+

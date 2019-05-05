@@ -4,9 +4,5 @@
   },
   "responseTime": {
     "enabled": false
-  },
-  "poweredBy": {
-    "enabled": true,
-    "value": "Strapi <strapi.io>"
   }
 }

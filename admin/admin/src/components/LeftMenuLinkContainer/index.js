@@ -110,7 +110,7 @@ function LeftMenuLinkContainer({ layout, plugins }) {
           <LeftMenuLink
             icon="shopping-basket"
             label={messages.installNewPlugin.id}
-            destination="/marketplace"
+            destination="/install-plugin"
           />
           {hasSettingsManager && (
             <LeftMenuLink

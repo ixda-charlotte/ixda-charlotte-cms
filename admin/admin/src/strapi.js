@@ -57,8 +57,8 @@ const registerPlugin = (plugin) => {
 const displayNotification = (message, status) => {
   store.dispatch(showNotification(message, status));
 };
-const lockApp = (data) => {
-  store.dispatch(freezeApp(data));
+const lockApp = () => {
+  store.dispatch(freezeApp());
 };
 const unlockApp = () => {
   store.dispatch(unfreezeApp());

@@ -5,6 +5,10 @@
   }
 }
 
+.container {
+  padding-top: 18px;
+}
+
 .main_wrapper{
   background: #ffffff;
   padding: 22px 28px 0px;
@@ -16,9 +20,13 @@
   padding-top: 2.6rem;
 }
 
+.separator {
+  margin: 0 0 17px;
+  border-top: 1px solid #F6F6F6;
+}
+
 .separatorHigher{
   margin-top: 19px;
-  margin-bottom: 18px;
   border-top: 1px solid #F6F6F6;
 }
 
@@ -33,27 +41,17 @@
   }
 }
 
+.listDisplayWrapper {
+  padding-top: 21px;
+}
+
 .draggedDescription {
   color: #333740;
   font-size: 13px;
   font-weight: 500;
-  line-height: 18px;
 
   > p {
-    margin-bottom: 29px;
-    color: #787E8F;
-    font-weight: 400;
-  }
-}
-
-.editFormTitle {
-  color: #333740;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 18px;
-
-  > p {
-    margin-bottom: 0;
+    margin-bottom: 28px;
     color: #787E8F;
     font-weight: 400;
   }
@@ -161,9 +159,7 @@
 }
 
 .edit_settings {
-  > p {
-    margin-bottom: 18px;
-  }
+  padding-top: 25px;
 }
 
 .sort_wrapper {
@@ -196,13 +192,4 @@
 
 .padded {
   padding-bottom: 1px;
-}
-
-
-.sectionTitle {
-  color: #787E8F;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.77px;
-  text-transform: uppercase;
 }

@@ -12,7 +12,6 @@
     "enabled": false
   },
   "admin": {
-    "autoOpen": false,
-    "path": "${/process.env.ADMIN_PATH || /admin}"
+    "autoOpen": false
   }
 }

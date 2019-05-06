@@ -1,0 +1,17 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "sponsor",
+    "description": "IxDA Sponsors either through monetary or in-kind donations, or through participation on the executive leadership committee."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Name": {
+      "default": "",
+      "type": "string"
+    }
+  }
+}

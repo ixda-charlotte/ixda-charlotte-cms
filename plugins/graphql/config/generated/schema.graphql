@@ -1,3 +1,11 @@
+input createExecutiveInput {
+  data: ExecutiveInput
+}
+
+type createExecutivePayload {
+  executive: Executive
+}
+
 input createLeaderInput {
   data: LeaderInput
 }
@@ -22,6 +30,14 @@ type createRolePayload {
   role: UsersPermissionsRole
 }
 
+input createSponsorInput {
+  data: SponsorInput
+}
+
+type createSponsorPayload {
+  sponsor: Sponsor
+}
+
 input createTagInput {
   data: TagInput
 }
@@ -42,6 +58,14 @@ type createUserPayload {
 The `DateTime` scalar represents a date and time following the ISO 8601 standard
 """
 scalar DateTime
+
+input deleteExecutiveInput {
+  where: InputID
+}
+
+type deleteExecutivePayload {
+  executive: Executive
+}
 
 input deleteLeaderInput {
   where: InputID
@@ -67,6 +91,14 @@ type deleteRolePayload {
   role: UsersPermissionsRole
 }
 
+input deleteSponsorInput {
+  where: InputID
+}
+
+type deleteSponsorPayload {
+  sponsor: Sponsor
+}
+
 input deleteTagInput {
   where: InputID
 }
@@ -81,6 +113,55 @@ input deleteUserInput {
 
 type deleteUserPayload {
   user: UsersPermissionsUser
+}
+
+"""Executive Leadership Committee Member"""
+type Executive {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  Name: String
+}
+
+type ExecutiveAggregator {
+  count: Int
+}
+
+type ExecutiveConnection {
+  values: [Executive]
+  groupBy: ExecutiveGroupBy
+  aggregate: ExecutiveAggregator
+}
+
+type ExecutiveConnection_id {
+  key: ID
+  connection: ExecutiveConnection
+}
+
+type ExecutiveConnectionCreatedAt {
+  key: DateTime
+  connection: ExecutiveConnection
+}
+
+type ExecutiveConnectionName {
+  key: String
+  connection: ExecutiveConnection
+}
+
+type ExecutiveConnectionUpdatedAt {
+  key: DateTime
+  connection: ExecutiveConnection
+}
+
+type ExecutiveGroupBy {
+  _id: [ExecutiveConnection_id]
+  createdAt: [ExecutiveConnectionCreatedAt]
+  updatedAt: [ExecutiveConnectionUpdatedAt]
+  Name: [ExecutiveConnectionName]
+}
+
+input ExecutiveInput {
+  Name: String
 }
 
 input FileInput {
@@ -154,15 +235,21 @@ input LeaderInput {
   Name: String
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Leader | createLeaderPayload | updateLeaderPayload | deleteLeaderPayload | LeaderConnection | LeaderAggregator | LeaderGroupBy | LeaderConnection_id | LeaderConnectionCreatedAt | LeaderConnectionUpdatedAt | LeaderConnectionName | Post | createPostPayload | updatePostPayload | deletePostPayload | PostConnection | PostAggregator | PostGroupBy | PostConnection_id | PostConnectionCreatedAt | PostConnectionUpdatedAt | PostConnectionTitle | PostConnectionContent | PostConnectionCover | Tag | createTagPayload | updateTagPayload | deleteTagPayload | TagConnection | TagAggregator | TagGroupBy | TagConnection_id | TagConnectionCreatedAt | TagConnectionUpdatedAt | TagConnectionName | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Executive | createExecutivePayload | updateExecutivePayload | deleteExecutivePayload | ExecutiveConnection | ExecutiveAggregator | ExecutiveGroupBy | ExecutiveConnection_id | ExecutiveConnectionCreatedAt | ExecutiveConnectionUpdatedAt | ExecutiveConnectionName | Leader | createLeaderPayload | updateLeaderPayload | deleteLeaderPayload | LeaderConnection | LeaderAggregator | LeaderGroupBy | LeaderConnection_id | LeaderConnectionCreatedAt | LeaderConnectionUpdatedAt | LeaderConnectionName | Post | createPostPayload | updatePostPayload | deletePostPayload | PostConnection | PostAggregator | PostGroupBy | PostConnection_id | PostConnectionCreatedAt | PostConnectionUpdatedAt | PostConnectionTitle | PostConnectionContent | PostConnectionCover | Sponsor | createSponsorPayload | updateSponsorPayload | deleteSponsorPayload | SponsorConnection | SponsorAggregator | SponsorGroupBy | SponsorConnection_id | SponsorConnectionCreatedAt | SponsorConnectionUpdatedAt | SponsorConnectionName | Tag | createTagPayload | updateTagPayload | deleteTagPayload | TagConnection | TagAggregator | TagGroupBy | TagConnection_id | TagConnectionCreatedAt | TagConnectionUpdatedAt | TagConnectionName | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
+  createExecutive(input: createExecutiveInput): createExecutivePayload
+  updateExecutive(input: updateExecutiveInput): updateExecutivePayload
+  deleteExecutive(input: deleteExecutiveInput): deleteExecutivePayload
   createLeader(input: createLeaderInput): createLeaderPayload
   updateLeader(input: updateLeaderInput): updateLeaderPayload
   deleteLeader(input: deleteLeaderInput): deleteLeaderPayload
   createPost(input: createPostInput): createPostPayload
   updatePost(input: updatePostInput): updatePostPayload
   deletePost(input: deletePostInput): deletePostPayload
+  createSponsor(input: createSponsorInput): createSponsorPayload
+  updateSponsor(input: updateSponsorInput): updateSponsorPayload
+  deleteSponsor(input: deleteSponsorInput): deleteSponsorPayload
   createTag(input: createTagInput): createTagPayload
   updateTag(input: updateTagInput): updateTagPayload
   deleteTag(input: deleteTagInput): deleteTagPayload
@@ -248,12 +335,18 @@ input PostInput {
 }
 
 type Query {
+  executive(id: ID!): Executive
+  executives(sort: String, limit: Int, start: Int, where: JSON): [Executive]
+  executivesConnection(sort: String, limit: Int, start: Int, where: JSON): ExecutiveConnection
   leader(id: ID!): Leader
   leaders(sort: String, limit: Int, start: Int, where: JSON): [Leader]
   leadersConnection(sort: String, limit: Int, start: Int, where: JSON): LeaderConnection
   post(id: ID!): Post
   posts(sort: String, limit: Int, start: Int, where: JSON): [Post]
   postsConnection(sort: String, limit: Int, start: Int, where: JSON): PostConnection
+  sponsor(id: ID!): Sponsor
+  sponsors(sort: String, limit: Int, start: Int, where: JSON): [Sponsor]
+  sponsorsConnection(sort: String, limit: Int, start: Int, where: JSON): SponsorConnection
   tag(id: ID!): Tag
   tags(sort: String, limit: Int, start: Int, where: JSON): [Tag]
   tagsConnection(sort: String, limit: Int, start: Int, where: JSON): TagConnection
@@ -278,6 +371,57 @@ input RoleInput {
   type: String
   permissions: [ID]
   users: [ID]
+}
+
+"""
+IxDA Sponsors either through monetary or in-kind donations, or through participation on the executive leadership committee.
+"""
+type Sponsor {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  Name: String
+}
+
+type SponsorAggregator {
+  count: Int
+}
+
+type SponsorConnection {
+  values: [Sponsor]
+  groupBy: SponsorGroupBy
+  aggregate: SponsorAggregator
+}
+
+type SponsorConnection_id {
+  key: ID
+  connection: SponsorConnection
+}
+
+type SponsorConnectionCreatedAt {
+  key: DateTime
+  connection: SponsorConnection
+}
+
+type SponsorConnectionName {
+  key: String
+  connection: SponsorConnection
+}
+
+type SponsorConnectionUpdatedAt {
+  key: DateTime
+  connection: SponsorConnection
+}
+
+type SponsorGroupBy {
+  _id: [SponsorConnection_id]
+  createdAt: [SponsorConnectionCreatedAt]
+  updatedAt: [SponsorConnectionUpdatedAt]
+  Name: [SponsorConnectionName]
+}
+
+input SponsorInput {
+  Name: String
 }
 
 type Tag {
@@ -330,6 +474,15 @@ input TagInput {
   posts: [ID]
 }
 
+input updateExecutiveInput {
+  where: InputID
+  data: ExecutiveInput
+}
+
+type updateExecutivePayload {
+  executive: Executive
+}
+
 input updateLeaderInput {
   where: InputID
   data: LeaderInput
@@ -355,6 +508,15 @@ input updateRoleInput {
 
 type updateRolePayload {
   role: UsersPermissionsRole
+}
+
+input updateSponsorInput {
+  where: InputID
+  data: SponsorInput
+}
+
+type updateSponsorPayload {
+  sponsor: Sponsor
 }
 
 input updateTagInput {
